@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Website</title>
     <link rel="stylesheet" href="styles.css" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <!-- Link to your CSS -->
   </head>
   <body>
@@ -22,8 +23,23 @@
       <section>
         <h2>HR Analysis</h2>
         <p>Start HR Analysis</p>
-        <button id="start-hr-analysis">Start HR Analysis</button>
+        <!-- <button id="start-hr-analysis">Start HR Analysis</button> -->
+        <select id="state-selector">
+          <option value="-">Select</option>
+          <option value="rest">Rest</option>
+          <option value="stress">Stress</option>
+          <option value="low intensity exercise">Low Intensity Exercise</option>
+          <option value="moderate intensity exercise">
+            Moderate Intensity Exercise
+          </option>
+          <option value="high intensity exercise">
+            High Intensity Exercise
+          </option>
+        </select>
+        <button id="stop-hr-analysis">Stop HR Analysis</button>
+        <div class="heart" id="heart" style="display: none"></div>
         <p id="bpm" style="display: none">BPM: --</p>
+        <canvas id="hrChart" style="display: none"></canvas>
         <script src="hrsimulation.js"></script>
       </section>
     </main>

@@ -31,30 +31,102 @@ function generateHR(state) {
 }
 
 let hrData = [];
-const state = "rest"; // Change to 'rest', 'stress', 'exercise', etc.
+const duration = 120;
+// const state = "rest"; // Change to 'rest', 'stress', 'exercise', etc.
 let simulationInterval = null; // To store the interval ID
+
+// Chart.js setup
+const ctx = document.getElementById("hrChart").getContext("2d");
+const hrChart = new Chart(ctx, {
+  type: "line",
+  data: {
+    labels: Array.from({ length: duration }, (_, i) => i + 1), // 1 to 60 seconds
+    datasets: [
+      {
+        label: "Heart Rate (BPM)",
+        data: [],
+        borderColor: "red",
+        borderWidth: 2,
+        fill: false,
+      },
+    ],
+  },
+  options: {
+    responsive: true,
+    scales: {
+      x: { title: { display: true, text: "Time (s)" } },
+      y: { title: { display: true, text: "BPM" }, min: 50, max: 200 },
+    },
+  },
+});
+
+// Function to update the chart with new data
+function updateChart(chart, data) {
+  chart.data.datasets[0].data = data;
+  chart.update();
+}
 
 // Function to update heart rate visuals in real-time
 function updateHR() {
   const bpm = generateHR(state);
   hrData.push(bpm);
 
+  // Keep only the last 60 seconds of data
+  if (hrData.length > duration) {
+    hrData.shift();
+  }
+
+  // Update the heart animation speed
+  const heart = document.getElementById("heart");
+  heart.style.animationDuration = `${60 / bpm}s`;
+
   // Update the BPM display
   document.getElementById("bpm").innerText = `BPM: ${bpm}`;
+
+  // Update the chart
+  updateChart(hrChart, hrData);
 }
 
 // Function to start the simulation
 function startSimulation() {
+  // Display the elements
+  document.getElementById("heart").style.display = "block";
   document.getElementById("bpm").style.display = "block";
+  const hrChart = document.getElementById("hrChart");
 
+  // Add the show-canvas class to make the canvas visible with custom size
+  hrChart.style.display = "block"; // Make the canvas visible immediately
+  hrChart.classList.add("show-canvas");
+
+  // Restart the heart pulsating animation
+  const heart = document.getElementById("heart");
+  heart.style.animationPlayState = "running";
+
+  // Start the interval to update HR
+  // Start the interval to update HR
   if (!simulationInterval) {
     simulationInterval = setInterval(updateHR, 1000);
   }
 }
 
-// Add event listener to the start button
-document.getElementById("start-hr-analysis").addEventListener("click", () => {
+function stopSimulation() {
+  if (simulationInterval) {
+    clearInterval(simulationInterval);
+    simulationInterval = null;
+  }
+  // Stop the heart pulsating animation
+  const heart = document.getElementById("heart");
+  heart.style.animationPlayState = "paused";
+}
+
+// Add event listener to the stop button
+document.getElementById("stop-hr-analysis").addEventListener("click", () => {
+  stopSimulation();
+});
+
+document.getElementById("state-selector").addEventListener("change", (e) => {
+  state = e.target.value;
   if (!simulationInterval) {
-    startSimulation();
+    startSimulation(); // Start simulation if not already running
   }
 });
