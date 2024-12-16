@@ -3,48 +3,83 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Website</title>
+    <title>My Website</title>
     <link rel="stylesheet" href="styles.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Quicksand:wght@400;500&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <!-- Link to your CSS -->
   </head>
   <body>
     <header>
-      <h1>Welcome to my website</h1>
+      <img
+        src="RelaxSyncLogo.png"
+        alt="RelaxSync Logo"
+        style="width: 300px; height: 50px"
+      />
+      <!-- <h1>A Mindful Music Meditation</h1> -->
       <nav>
         <ul>
           <li><a href="#">Home</a></li>
-          <li><a href="#">About</a></li>
-          <li><a href="#">Contact</a></li>
+          <!-- <li><a href="#">About</a></li>
+          <li><a href="#">Contact</a></li> -->
         </ul>
       </nav>
     </header>
     <main>
       <section>
-        <h2>HR Analysis</h2>
-        <p>Start HR Analysis</p>
+        <h2>Experience a Personalized Mindfulness Journey</h2>
+        <p>Lets start by analysing your Heart Rate</p>
         <!-- <button id="start-hr-analysis">Start HR Analysis</button> -->
         <select id="state-selector">
-          <option value="-">Select</option>
+          <!-- <option value="-">Select</option> -->
           <option value="rest">Rest</option>
-          <option value="stress">Stress</option>
-          <option value="low intensity exercise">Low Intensity Exercise</option>
-          <option value="moderate intensity exercise">
-            Moderate Intensity Exercise
-          </option>
-          <option value="high intensity exercise">
-            High Intensity Exercise
-          </option>
+          <option value="low stress">Low Stress</option>
+          <option value="medium stress">Medium Stress</option>
+          <option value="high stress">High Stress</option>
         </select>
         <button id="stop-hr-analysis">Stop HR Analysis</button>
-        <div class="heart" id="heart" style="display: none"></div>
-        <p id="bpm" style="display: none">BPM: --</p>
-        <canvas id="hrChart" style="display: none"></canvas>
+        <div id ="whitebg"
+          style="
+            width: 100%;
+            height: 100%;
+            background: white;
+            box-shadow: 0px 0px 18px 2px rgba(0, 0, 0, 0.04);
+            border-radius: 20px;
+            display: block"
+          "
+        >
+        <p id="bpm" style="display: block; font-size: 24px; margin-left: 70px;">BPM: --</p>
+        <div id="horizontal-container" 
+        style="
+           display: flex; /* Enables horizontal alignment */
+           justify-content: space-around; /* Distributes space evenly between elements */
+           align-items: center; /* Aligns elements vertically at the center */
+           gap: 20px; /* Optional: Adds space between items */
+        "
+   >
+       <!-- <div class="heart" id="heart" style="display: block; width: 50px; height: 50px; background-color: red; border-radius: 50%;"></div> -->
+        <div id="heart" class="heart" style="display: block"></div>
+       <canvas id="hrChart" style="display: block; width: 300px; height: 150px; border: 1px solid #ccc;"></canvas>
+   </div>
+      </div>
+     
+      <div id ="whitebg2"
+      style="
+        width: 100%;
+        height: 100%;
+        background: white;
+        box-shadow: 0px 0px 18px 2px rgba(0, 0, 0, 0.04);
+        border-radius: 20px;
+        display: block"
+      "
+    >
+        <div id="voiceSignal" class="voice-signal"></div>
+        </div>
         <script src="hrsimulation.js"></script>
       </section>
     </main>
     <footer>
-      <p>&copy; 2024 My Simple Website</p>
+      <p>&copy; 2024 RelaxSync</p>
     </footer>
     <script src="script.js"></script>
     <!-- Link to your JavaScript -->
